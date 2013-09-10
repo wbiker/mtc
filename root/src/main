@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Der Muri Trainings Plan Creator</title>
+    </head>
+    <body>
+        [% IF debug %]
+        <p>[% debug %]</p>
+        [% END %]
+        <ul>
+            <li><a href="[% c.uri_for('/customers') %]">Kunden</a></li>
+            <li><a href="[% c.uri_for('/trainingsplans') %]">Trainingspläne</a></li>
+            <li><a href="[% c.uri_for('/exercises') %]">Übungen</a></li>
+        </ul>
+        <p>[% content %]</p>
+    </body>
+</html>

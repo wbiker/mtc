@@ -1,6 +1,7 @@
 package mtc::Controller::Root;
 use Moose;
 use namespace::autoclean;
+use mtc::Form::NewExercise;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -30,9 +31,9 @@ The root page (/)
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
-    
 }
+
+
 
 =head2 default
 

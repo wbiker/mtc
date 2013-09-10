@@ -1,0 +1,13 @@
+[% META title = "Alle Übungen" %]
+<table>
+    <tr>
+        <th>Name</th><th>Kategorie</th><th>Bild</th>
+    </tr>
+[% FOREACH exercise IN exercises %]
+    <tr>
+        <td>[% exercise.name %]</td>
+        <td>[% exercise.category %]</td>
+        <td><img src="[% exercise.picture %]"</img></td>
+    </tr>
+[% END %]
+</table>

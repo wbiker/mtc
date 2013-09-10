@@ -1,0 +1,13 @@
+[% META title = "Alle Kunden" %]
+<table>
+    <tr>
+        <th>Vorname</th><th>Nachname</th><th>Alter</th>
+    </tr>
+[% FOREACH customer IN customers %]
+    <tr>
+        <td>[% customer.firstname %]</td>
+        <td>[% customer.lastname %]</td>
+        <td><img src="[% customer.age %]"</img></td>
+    </tr>
+[% END %]
+</table>
