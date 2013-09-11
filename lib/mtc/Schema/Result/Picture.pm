@@ -47,7 +47,7 @@ __PACKAGE__->table("picture");
 =head2 path
 
   data_type: 'text'
-  is_nullable: 0
+  is_nullable: 1
 
 =cut
 
@@ -55,7 +55,7 @@ __PACKAGE__->add_columns(
   "pid",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "path",
-  { data_type => "text", is_nullable => 0 },
+  { data_type => "text", is_nullable => 1 },
 );
 
 =head1 PRIMARY KEY
@@ -71,8 +71,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("pid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07036 @ 2013-09-10 16:43:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JemT2nQ3JRdVKfG6ZSZNZA
+# Created by DBIx::Class::Schema::Loader v0.07036 @ 2013-09-11 12:10:47
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:OjyI9A+RUdnEx8ObXSrvjQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

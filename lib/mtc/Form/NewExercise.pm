@@ -13,10 +13,11 @@ has_field 'submit' => ( type => 'Submit', value => 'Upload' );
 
 sub category_options {
     return [ 
-                { value => 0, label => 'Bauch' },
-                { value => 1, label => 'Rücken' },
-                { value => 2, label => 'Brust' },
-                { value => 3, label => 'Beine' },
+                { value => 1, label => 'Bauch' },
+                { value => 2, label => 'Rücken' },
+                { value => 3, label => 'Brust' },
+                { value => 4, label => 'Beine' },
+                { value => 5, label => 'Aufwärmen' },
            ]
 }
 1;

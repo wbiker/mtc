@@ -30,11 +30,11 @@ extends 'DBIx::Class::Core';
 
 __PACKAGE__->load_components("InflateColumn::DateTime");
 
-=head1 TABLE: C<exercises>
+=head1 TABLE: C<exercise>
 
 =cut
 
-__PACKAGE__->table("exercises");
+__PACKAGE__->table("exercise");
 
 =head1 ACCESSORS
 
@@ -85,8 +85,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("eid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07036 @ 2013-09-10 16:43:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xMg03GBEW22NofLrT1Wvqw
+# Created by DBIx::Class::Schema::Loader v0.07036 @ 2013-09-11 12:10:47
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:a0e/T91YuPniJnTEXSZ6Vw
 
 __PACKAGE__->has_many("cid", "mtc::Schema::Result::Category", { cid => 'cid' });
 __PACKAGE__->has_many("pid", "mtc::Schema::Result::Picture", { pid => 'pid' } );

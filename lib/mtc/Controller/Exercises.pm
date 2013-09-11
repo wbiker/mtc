@@ -48,7 +48,17 @@ sub add :Local {
 
     return unless $form->validated;
 
+# here we are. The user has set some information about the new 
+# exercise. Was I need:
+# name - THe name of the exercise
+# category - the category of the exercise [Bauch 1|Brust 2|Rücken 3|Beine 4|Aufwärmen 5]
+# file - the uploaded file if set. It is used as picture for the exercise and stored
+#   in the filesystem under root/static/images/exercises/<pictureID>.jpg
+
     $c->log->info("Name: ".$c->req->parameters->{name});
+    $c->log->info("Category: ".$c->req->parameters->{category});
+
+
 }
 
 =encoding utf8
