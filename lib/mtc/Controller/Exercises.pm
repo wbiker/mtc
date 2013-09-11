@@ -22,9 +22,9 @@ sub index :Path :Args(0) {
 
     $c->stash(template => 'exercises/list.tt2');
 
-    $c->stash(exercises => [$c->model('DBIC::Exercise')->all]);
-    my $dump =  Dumper $c->model('DBIC::Exercise')->all;
-    $c->log->info("dump: $dump");
+    $c->stash(exercises => [$c->model('DB::Exercise')->all]);
+    my $dump =  Dumper $c->model('DB::Exercise')->all;
+    $c->log->info("dump: '$dump'");
     $c->stash(debug => $dump);
 }
 
@@ -54,11 +54,30 @@ sub add :Local {
 # category - the category of the exercise [Bauch 1|Brust 2|Rücken 3|Beine 4|Aufwärmen 5]
 # file - the uploaded file if set. It is used as picture for the exercise and stored
 #   in the filesystem under root/static/images/exercises/<pictureID>.jpg
+    
+    my $name = $c->req->parameters->{name};
+    my $category = $c->req->parameters->{category};
 
-    $c->log->info("Name: ".$c->req->parameters->{name});
-    $c->log->info("Category: ".$c->req->parameters->{category});
+    $c->log->info("Name: $name");
+    $c->log->info("Category: $category");
 
-
+    # First store the picture in the database.
+# Unfortunatelly, I need the path for that, but I don't now the PictureID.
+# So I create an dummy entry in the picture tables and afterwards use the id to store the 
+# picture in the filesystem withthe id as name. THen update the picture table with the proper path
+    if(defined $params->{file}) {
+        my $pic = $c->model('DB::Picture')->create({ path => 'nothing' });
+    # now the entry should have a ID.
+        my $id = $pic->id;
+        $c->log->info("Hurray the ID: $id");
+        my $exercise_pic = "root/static/images/exercises/${id}.jpg";
+        $params->{file}->copy_to($exercise_pic);
+        $pic->update({path => $exercise_pic});
+    }
+    else {
+        $c->log->debug("No picture");
+    }
+    
 }
 
 =encoding utf8

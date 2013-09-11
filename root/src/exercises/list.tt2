@@ -6,8 +6,8 @@
 [% FOREACH exercise IN exercises %]
     <tr>
         <td>[% exercise.name %]</td>
-        <td>[% exercise.category %]</td>
-        <td><img src="[% exercise.picture %]"</img></td>
+        <td>[% exercise.cid.name %]</td>
+        <td><img src="[% exercise.pid.path %]"</img></td>
     </tr>
 [% END %]
 </table>

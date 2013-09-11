@@ -12,6 +12,6 @@
             <li><a href="[% c.uri_for('/trainingsplans') %]">Trainingspläne</a></li>
             <li><a href="[% c.uri_for('/exercises') %]">Übungen</a></li>
         </ul>
-        <p>[% content %]</p>
+        [% content %]
     </body>
 </html>
