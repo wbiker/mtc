@@ -2,6 +2,7 @@ package mtc::Controller::Exercises;
 use Moose;
 use namespace::autoclean;
 use Data::Dumper;
+use Imager;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -22,10 +23,8 @@ sub index :Path :Args(0) {
 
     $c->stash(template => 'exercises/list.tt2');
 
-    $c->stash(exercises => [$c->model('DB::Exercise')->all]);
-    my $dump =  Dumper $c->model('DB::Exercise')->all;
-    $c->log->info("dump: '$dump'");
-    $c->stash(debug => $dump);
+    $c->stash(exercises => $c->model('DB::Exercise'));
+    $c->stash(debug => $c->uri_for('/'));
 }
 
 =head2 add
@@ -65,19 +64,31 @@ sub add :Local {
 # Unfortunatelly, I need the path for that, but I don't now the PictureID.
 # So I create an dummy entry in the picture tables and afterwards use the id to store the 
 # picture in the filesystem withthe id as name. THen update the picture table with the proper path
+    my $id;
     if(defined $params->{file}) {
         my $pic = $c->model('DB::Picture')->create({ path => 'nothing' });
     # now the entry should have a ID.
-        my $id = $pic->id;
+        $id = $pic->id;
         $c->log->info("Hurray the ID: $id");
-        my $exercise_pic = "root/static/images/exercises/${id}.jpg";
-        $params->{file}->copy_to($exercise_pic);
+        my $exercise_pic = "/static/images/exercises/${id}.jpg";
+        my $upload = $params->{file};
+        $upload->copy_to("root$exercise_pic") or $c->log->error("Could not store uploaded file in $exercise_pic: $!");
+
+# make a thumbnail
+        my $img = Imager->new;
+        $img->read( file => "root$exercise_pic" ) or die $img->errstr;
+        my $copyimg = $img->copy();
+        $copyimg = $copyimg->scale(xpixel => '50');
+        $copyimg->write(file => "root$exercise_pic") or die $copyimg->errstr;
         $pic->update({path => $exercise_pic});
+        $c->stash(debug => $c->uri_for());
     }
     else {
         $c->log->debug("No picture");
     }
     
+# Next get the exercise class and store the new exercise along with the picture if set.
+    my $exercise = $c->model("DB::Exercise")->create({ name => $name, cid => $category, pid => $id}); 
 }
 
 =encoding utf8

@@ -88,8 +88,8 @@ __PACKAGE__->set_primary_key("eid");
 # Created by DBIx::Class::Schema::Loader v0.07036 @ 2013-09-11 12:10:47
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:a0e/T91YuPniJnTEXSZ6Vw
 
-__PACKAGE__->has_many("cid", "mtc::Schema::Result::Category", { cid => 'cid' });
-__PACKAGE__->has_many("pid", "mtc::Schema::Result::Picture", { pid => 'pid' } );
+__PACKAGE__->has_many("category", "mtc::Schema::Result::Category", { 'foreign.cid' => 'self.cid' });
+__PACKAGE__->has_many("picture", "mtc::Schema::Result::Picture", { 'foreign.pid' => 'self.pid' } );
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

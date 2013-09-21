@@ -1,0 +1,3 @@
+[% META title="Neuer Kunde" %]
+[% form.render %]
+

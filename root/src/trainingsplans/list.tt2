@@ -1,0 +1,16 @@
+[% META title = "Alle Trainingspläne" %]
+<table>
+    <tr>
+        <th>Name</th><th>Kunde</th>
+    </tr>
+    [% IF trainingplans.count > 0 %]
+        [% WHILE (plan = trainingplans.next) %]
+        <tr>
+            <td>[% plan.name %]</td>
+            <td>[% plan.cid.firstname %] [% plan.cid.lastname %]</td>
+            <td><a href="[% plan.tid %]/show">Zeigen</a></td>
+            <td><a href="[% plan.tid %]/delete">Löschen</a></td>
+        </tr>
+        [% END %]
+    [% END %]
+</table>

@@ -1,0 +1,28 @@
+[% META title = "Trainingsplan" %]
+<table>
+    <tr>
+        <td>Name:</td><td>[% plan.cid.firstname %] [% plan.cid.lastname %] </td>
+    </tr>
+    <tr>
+        <td>Kategorie:</td><td>[% plan.name %]</td>
+    </tr>
+</table>
+<hr>
+<form name="add" action="addexercises" method="POST">
+    <table>
+        <tr>
+           <th></th><th>Name</th><th>Kategorie</th><th>Bild</th>
+        </tr>
+        [% IF exercises.count > 0 %]
+            [% WHILE (exercise = exercises.next) %]
+                <tr>
+                    <td><input type="checkbox" name="[% exercise.eid %]" value="[% exercise.eid %]"></td>
+                    <td>[% exercise.name %]</td>
+                    <td>[% exercise.category.name %]</td>
+                    <td><img src="[% exercise.picture.path %]" alt="[% exercise.name %]" height="50" width="50"></td>
+                </tr>
+            [% END %]
+        [% END %]
+    </table>
+    <input type="submit" value="Submit">
+</form>

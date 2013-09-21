@@ -3,11 +3,15 @@
     <tr>
         <th>Vorname</th><th>Nachname</th><th>Alter</th>
     </tr>
-[% FOREACH customer IN customers %]
-    <tr>
-        <td>[% customer.firstname %]</td>
-        <td>[% customer.lastname %]</td>
-        <td><img src="[% customer.age %]"</img></td>
-    </tr>
-[% END %]
+    [% IF customers.count > 0 %]
+        [% WHILE (customer = customers.next) %]
+            <tr>
+                <td>[% customer.firstname %]</td>
+                <td>[% customer.lastname %]</td>
+                <td>[% customer.age %]</td>
+            </tr>
+        [% END %]
+    [% ELSE %]
+        <p>Keine Kunden gefunden</p>
+    [% END %]
 </table>

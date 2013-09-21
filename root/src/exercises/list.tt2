@@ -3,11 +3,13 @@
     <tr>
         <th>Name</th><th>Kategorie</th><th>Bild</th>
     </tr>
-[% FOREACH exercise IN exercises %]
-    <tr>
-        <td>[% exercise.name %]</td>
-        <td>[% exercise.cid.name %]</td>
-        <td><img src="[% exercise.pid.path %]"</img></td>
-    </tr>
-[% END %]
+    [% IF exercises.count > 0 %]
+        [% WHILE (exercise = exercises.next) %]
+        <tr>
+            <td>[% exercise.name %]</td>
+            <td>[% exercise.category.name %]</td>
+            <td><img src="[% exercise.picture.path %]" alt="[% exercise.name %]" height="50" width="50"></td>
+        </tr>
+        [% END %]
+    [% END %]
 </table>

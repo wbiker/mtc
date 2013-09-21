@@ -10,6 +10,7 @@ __PACKAGE__->config(
     render_die => 1,
     INCLUDE_PATH => [
         mtc->path_to('root', 'src'),
+        mtc->path_to('root', 'static', 'images', 'exercises'),
     ],
 );
 

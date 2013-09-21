@@ -1,0 +1,25 @@
+[% META title = "Trainingsplan" %]
+<table>
+    <tr>
+        <td>Name:</td><td>[% plan.cid.firstname %] [% plan.cid.lastname %] </td>
+    </tr>
+    <tr>
+        <td>Kategorie:</td><td>[% plan.name %]</td>
+    </tr>
+</table>
+<a href="add_exercise">Übung hinzufügen</a>
+<hr>
+<table>
+    <tr>
+        <th>Name</th><th>Kategorie</th><th>Bild</th>
+    </tr>
+    [% IF exercises.count > 0 %]
+        [% WHILE (exercise = exercises.next) %]
+            <tr>
+                <td>[% exercise.name %]</td>
+                <td>[% exercise.category.name %]</td>
+                <td><img src="[% exercise.picture.path %]" alt="[% exercise.name %]" height="50" width="50"></td>
+            </tr>
+        [% END %]
+    [% END %]
+</table>

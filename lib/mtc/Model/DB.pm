@@ -13,6 +13,20 @@ __PACKAGE__->config(
     }
 );
 
+sub get_customer_for_select {
+    my ($self) = @_;
+    
+    my $customer = $self->resultset('Customer');
+    my $value_label = [];    
+    if($customer->count > 0) {
+        while(my $row = $customer->next) {
+            my $name = $row->firstname." ".$row->lastname;
+            push(@{$value_label}, { value => $row->cid, label => $name });
+        }
+    }
+    return $value_label;
+}
+
 =head1 NAME
 
 mtc::Model::DB - Catalyst DBIC Schema Model

@@ -4,14 +4,18 @@
         <title>Der Muri Trainings Plan Creator</title>
     </head>
     <body>
+        <dl>
+            <dt><a href="[% c.uri_for('/customers') %]">Kunden</a></dt>
+                <dd><a href="[% c.uri_for('/customers', 'add') %]">Neu</a></dd>
+            <dt><a href="[% c.uri_for('/trainingsplans/list') %]">Trainingspläne</a></dt>
+                <dd><a href="[% c.uri_for('/trainingsplans', 'add') %]">New</a></dd>
+            <dt><a href="[% c.uri_for('/exercises') %]">Übungen</a></dt>
+                <dd><a href="[% c.uri_for('/exercises', 'add') %]">New</a></dd>
+        </dl>
+        [% content %]
+        <hr>
         [% IF debug %]
         <p>[% debug %]</p>
         [% END %]
-        <ul>
-            <li><a href="[% c.uri_for('/customers') %]">Kunden</a></li>
-            <li><a href="[% c.uri_for('/trainingsplans') %]">Trainingspläne</a></li>
-            <li><a href="[% c.uri_for('/exercises') %]">Übungen</a></li>
-        </ul>
-        [% content %]
     </body>
 </html>
