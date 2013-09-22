@@ -1,7 +1,7 @@
 [% META title = "Alle Übungen" %]
 <table>
     <tr>
-        <th>Name</th><th>Kategorie</th><th>Bild</th>
+        <th>Name</th><th>Kategorie</th><th>Bild</th><th></th><th></th>
     </tr>
     [% IF exercises.count > 0 %]
         [% WHILE (exercise = exercises.next) %]
@@ -9,6 +9,8 @@
             <td>[% exercise.name %]</td>
             <td>[% exercise.category.name %]</td>
             <td><img src="[% exercise.picture.path %]" alt="[% exercise.name %]" height="50" width="50"></td>
+            <td><a href="[% c.uri_for(exercise.eid, 'edit') %]">Bearbeiten</a></td>
+            <td><a href="[% c.uri_for(exercise.eid, 'delete') %]">Löschen</a></td>
         </tr>
         [% END %]
     [% END %]

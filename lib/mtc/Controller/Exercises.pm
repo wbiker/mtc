@@ -22,9 +22,7 @@ sub index :Path :Args(0) {
     my ($self, $c) = @_;
 
     $c->stash(template => 'exercises/list.tt2');
-
     $c->stash(exercises => $c->model('DB::Exercise'));
-    $c->stash(debug => $c->uri_for('/'));
 }
 
 =head2 add
@@ -89,6 +87,25 @@ sub add :Local {
     
 # Next get the exercise class and store the new exercise along with the picture if set.
     my $exercise = $c->model("DB::Exercise")->create({ name => $name, cid => $category, pid => $id}); 
+}
+
+sub base :Chained('') :PathPart('exercises') :CaptureArgs(1) {
+    my ($self, $c, $exercise_id) = @_;
+
+    $c->log->info("chained action with exercise id $exercise_id");
+    # fetch exercise and store it in the stash for the next chained action
+    my $ex = $c->model('DB::Exercise')->find({ eid => $exercise_id });
+    $c->stash(exercise => $ex);
+}
+
+sub delete :Chained("base") :PathPart('delete') :Args(0) {
+    my ($self, $c) = @_;
+
+# delete exercise in database
+    my $rs =  $c->stash->{exercise};
+    $c->log->debug("Delete exercise with the id ".$rs->{id});
+    $rs->delete;
+    $c->res->redirect($c->uri_for(''));
 }
 
 =encoding utf8
