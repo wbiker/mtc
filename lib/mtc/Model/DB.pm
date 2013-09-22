@@ -3,6 +3,8 @@ package mtc::Model::DB;
 use strict;
 use base 'Catalyst::Model::DBIC::Schema';
 
+use Data::Dumper;
+
 __PACKAGE__->config(
     schema_class => 'mtc::Schema',
     
@@ -25,6 +27,38 @@ sub get_customer_for_select {
         }
     }
     return $value_label;
+}
+
+sub get_categories {
+    my ($self) = @_;
+
+    my $categories = $self->resultset('Category');
+    my $cats = [];
+    if($categories->count > 0) {
+        while(my $row = $categories->next) {
+            push(@{$cats}, { value => $row->cid, label => $row->name });
+        }
+    }
+
+    return $cats;
+}
+
+sub get_exercises_for_planid {
+    my ($self, $c, $planid) = @_;
+    
+    my $exercisesIDs = $self->resultset('Trainingsplanexercise')->search({tid => $planid });
+
+    my @ids;
+    my $dum;
+    if($exercisesIDs->count > 0) {
+        while(my $row = $exercisesIDs->next) {
+            $c->log->debug("Exercise id: ".$row->get_column('eid'));
+
+            push(@ids, $row->get_column('eid'));
+        }
+    }
+
+    return $self->resultset('Exercise')->search({ eid => [@ids] });
 }
 
 =head1 NAME

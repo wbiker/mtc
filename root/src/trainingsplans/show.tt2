@@ -22,4 +22,5 @@
             </tr>
         [% END %]
     [% END %]
+    <p>Count: [% exercises.count %]</p>
 </table>

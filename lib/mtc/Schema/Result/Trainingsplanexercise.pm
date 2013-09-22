@@ -81,8 +81,8 @@ __PACKAGE__->set_primary_key("teid");
 # Created by DBIx::Class::Schema::Loader v0.07036 @ 2013-09-11 12:10:47
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:07vcpVLRC0mgo4RAKdyvpQ
 
-__PACKAGE__->has_many("tid", "mtc::Schema::Result::Trainingsplan", { tid => 'tid' });
-__PACKAGE__->has_many("eid", "mtc::Schema::Result::Exercise", { eid => 'eid' });
+__PACKAGE__->has_many("tid", "mtc::Schema::Result::Trainingsplan", { "foreign.tid" => 'self.tid' });
+__PACKAGE__->has_many("eid", "mtc::Schema::Result::Exercise", { "foreign.eid" => 'self.eid' });
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
 __PACKAGE__->meta->make_immutable;

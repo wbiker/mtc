@@ -36,7 +36,10 @@ sub add :Local {
 
     $c->stash(template => 'addExercise.tt2');
     my $form = mtc::Form::NewExercise->new;
-
+    
+# For the New Exercise form I need the categories...
+    my $opt = $c->model('DB')->get_categories;
+    $form->field('category')->options($opt);
     $c->stash(form => $form);
 
     my $params = $c->req->params;

@@ -16,7 +16,7 @@
         [% IF exercises.count > 0 %]
             [% WHILE (exercise = exercises.next) %]
                 <tr>
-                    <td><input type="checkbox" name="[% exercise.eid %]" value="[% exercise.eid %]"></td>
+                    <td><input type="checkbox" name="exercise" value="[% exercise.eid %]"></td>
                     <td>[% exercise.name %]</td>
                     <td>[% exercise.category.name %]</td>
                     <td><img src="[% exercise.picture.path %]" alt="[% exercise.name %]" height="50" width="50"></td>

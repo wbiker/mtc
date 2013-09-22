@@ -41,7 +41,8 @@ sub show :Chained('base') :Args(0) {
     my ($self, $c) = @_;
     
     my $planid = $c->stash->{plan}->tid;
-    my $exercises = $c->model('DB::Trainingsplanexercise')->search({}, { tid => $planid });
+    my $exercises = $c->model('DB')->get_exercises_for_planid($c, $planid);
+    $c->log->debug("Count: ".$exercises->count);
     $c->stash(exercises => $exercises);
 }
 
@@ -70,6 +71,30 @@ sub add :Local :Args(0) {
     $c->stash(debug => $form->values);
     my $plan = $c->model('DB::Trainingsplan');
     $plan->create({ name => $c->req->parameters->{name}, cid => $c->req->parameters->{customers }});
+}
+
+sub addexercises :Chained('base') :Args(0) {
+    my ($self, $c) = @_;
+
+    my $ex = $c->req->parameters->{exercise};
+    my $dum = Dumper \$ex;
+    $c->log->debug($dum);
+
+    my $plan = $c->stash->{plan};
+    $c->log->debug("Plan id = ".$plan->tid);
+
+    my $tpe = $c->model('DB::Trainingsplanexercise');
+# write the trainingplansexercise entries.
+    if(ref ($ex) eq 'ARRAY') {
+        for my $eid (@{$ex}) {
+            $tpe->create({ tid => $plan->tid, eid => $eid });
+        }
+    }
+    else {
+        $tpe->create({ tid => $plan->tid, eid => $ex });
+    }
+
+    $c->res->redirect($c->uri_for($plan->tid, 'show'));
 }
 
 =encoding utf8
